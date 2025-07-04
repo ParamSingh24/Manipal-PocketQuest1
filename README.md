@@ -2,6 +2,9 @@
 
 > **Your AI-Powered Health Adventure Companion** - A revolutionary location-based health intelligence platform that transforms outdoor activities into intelligent health experiences.
 
+![WhatsApp Image 2025-07-05 at 02 19 12_86746d6f](https://github.com/user-attachments/assets/9818c91d-8f3d-4534-b68a-1486f62e5338)
+
+
 ## 🎯 Problem Statement
 
 ### The Health Crisis We Face
