@@ -8,7 +8,7 @@ const Header = () => {
   const navItems = [
     { name: 'Explore', href: '#explore' },
     { name: 'Community', href: '#community' },
-    { name: 'Challenges', href: '#challenges' },
+    { name: 'Challenges', href: '/challenges' },
     { name: 'Rewards', href: '#rewards' },
     { name: 'Outbreak Map', href: '/outbreak-map' },
   ];
