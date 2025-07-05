@@ -12,7 +12,6 @@ const styles = {
     container: {
         width: '100%',
         height: '100vh',
-        background: 'linear-gradient(to top right, #3a1c71, #d76d77, #ffaf7b)',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

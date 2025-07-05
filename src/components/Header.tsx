@@ -24,7 +24,7 @@ const Header = () => {
           <Link to="/" className="logo">
             <div className="logo-icon" style={{ display: 'flex', alignItems: 'center' }}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
-              <span className="logo-text">P</span>
+              <span className="logo-text"></span>
             </div>
             <span className="brand-name">Manipal PokeQuest</span>
           </Link>

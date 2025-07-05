@@ -107,7 +107,13 @@ const OutbreakSection: React.FC = () => {
   }, [map, countries, infoWindow]);
 
   return (
-    <section className="features-section" style={{ marginBottom: '2rem' }}>
+    <section className="features-section" style={{
+      borderBottom: '2.5px solid transparent',
+      borderImage: 'linear-gradient(to right, #8A2BE2, #FF69B4) 1',
+      paddingBottom: '2em',
+      paddingTop:'2em',
+      background: 'var(--background-secondary)',
+    }}>
       <div className="features-container">
         <div className="features-header">
           <h2 className="features-title">Global Outbreak Map</h2>

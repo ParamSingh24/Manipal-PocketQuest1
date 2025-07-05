@@ -32,7 +32,11 @@ const HowItWorksSection = () => {
   ];
 
   return (
-    <section className="how-it-works-section">
+    <section className="how-it-works-section"  style={{
+      paddingBottom: '4em',
+      margin: '2rem 0' ,
+      background: 'var(--background-secondary)',
+    }}>
       <div className="how-it-works-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

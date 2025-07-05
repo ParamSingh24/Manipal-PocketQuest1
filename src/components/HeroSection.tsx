@@ -93,8 +93,8 @@ const HeroSection = () => {
     fontWeight: 400,
     fontStyle: 'normal',
   };
-    const heroDescriptionStyle2: React.CSSProperties = {
-   fontFamily: '"Young Serif", serif',
+  const heroDescriptionStyle2: React.CSSProperties = {
+    fontFamily: '"Young Serif", serif',
     fontSize: '1rem',
     lineHeight: 1.2,
     color: '#FFFFFF',
@@ -103,7 +103,11 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={{
+      borderBottom: '2.5px solid transparent',
+      borderImage: 'linear-gradient(to right, #8A2BE2, #FF69B4) 1',
+      paddingBottom: '8px'
+    }}>
       {/* Background Elements */}
       <div className="hero-background">
         <div className="floating-element floating-element-1"></div>
@@ -134,8 +138,8 @@ const HeroSection = () => {
               Collect Pokemon Cards By Performing Daily Challenges And Quizzes To Climb The Leaderboards
             </p>
 
-            <button 
-              className="cssbuttons-io-button" 
+            <button
+              className="cssbuttons-io-button"
               style={heroDescriptionStyle2}
               onClick={() => setIsStoryOpen(true)}
             >
@@ -232,10 +236,10 @@ const HeroSection = () => {
                     }}
                   >
                     <div className="parent">
-                      <PokemonCardHero/>
-                    
+                      <PokemonCardHero />
+
                     </div>
-                    
+
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -248,10 +252,10 @@ const HeroSection = () => {
         </div>
       </div>
       {/* Story Dialog */}
-      <StoryDialog 
-        isOpen={isStoryOpen} 
-        onClose={() => setIsStoryOpen(false)} 
-        pokemon={randomPokemon} 
+      <StoryDialog
+        isOpen={isStoryOpen}
+        onClose={() => setIsStoryOpen(false)}
+        pokemon={randomPokemon}
       />
     </section>
   );

@@ -34,11 +34,6 @@ const App = () => (
             <Route path="/leaderboard" element={<LeaderboardPage />} />
             <Route path="/chatbot" element={<ChatbotPage />} /> {/* Pokemon Chatbot route */}
             <Route path="/challenges" element={<ChallengesPage />} />
->>>>>>> ab90a4ef725e2712a4766e9ad6c7dd6165941aa3
-
-            <Route path="/leaderboard" element={<LeaderboardPage />} />
-            {/* Your catch-all route remains last */}
->>>>>>> e6feaa7ee4c18a89ee1744b205143b95a8eb8536
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
