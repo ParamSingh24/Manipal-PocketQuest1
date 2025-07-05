@@ -38,7 +38,7 @@ const FeaturesSection = () => {
         >
           <h2 className="features-title">Key Features</h2>
           <p className="features-description">
-            Discover how PocketQuest combines cutting-edge technology with engaging gameplay 
+            Discover how Manipal PokeQuest combines cutting-edge technology with engaging gameplay 
             to enhance your health and well-being.
           </p>
         </motion.div>

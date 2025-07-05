@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // Import AnimatePresence
 import PokemonCard from './PokemonCard'; // Ensure this path is correct
 import { Pokemon } from '@/types'; // Ensure this path is correct for your project
+import { ArrowRight } from 'lucide-react'; // Import arrow icon
 
 const HeroSection = () => {
   // State to hold the random Pokemon data
@@ -76,7 +77,7 @@ const HeroSection = () => {
     fontSize: '3.5rem',
     lineHeight: 1.2,
     color: '#FFFFFF',
-    textShadow: '0px 4px 8px rgba(0, 0, 0, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+    textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
     letterSpacing: '0.05em',
   };
   const heroDescriptionStyle: React.CSSProperties = {
@@ -85,7 +86,7 @@ const HeroSection = () => {
     lineHeight: 1.6,
     marginTop: '20px',
     marginBottom: '30px',
-    textShadow: '0px 2px 4px rgba(0, 0, 0, 0.3), 0px 0px 8px rgba(255, 255, 255, 0.1)',
+    textShadow: '0px 2px 4px rgba(8, 8, 8, 0.3), 0px 0px 8px rgba(255, 255, 255, 0.1)',
     fontWeight: 400,
     fontStyle: 'normal',
   };
@@ -119,14 +120,12 @@ const HeroSection = () => {
               weather intelligence, and AI health assistance, all while interacting with your favorite characters.
             </p>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="hero-cta-btn"
-              style={heroDescriptionStyle}
-            >
+            <button className="cssbuttons-io-button">
               Start Your Quest
-            </motion.button>
+              <div className="icon">
+                <ArrowRight />
+              </div>
+            </button>
           </motion.div>
 
           {/* Character/Illustration Container with Mouse Events and 3D Perspective */}

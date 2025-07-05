@@ -1,4 +1,4 @@
-# Manipal PocketQuest 🏥🗺️
+# Manipal PokeQuest 🏥🗺️
 
 > **Your AI-Powered Health Adventure Companion** - A revolutionary location-based health intelligence platform that transforms outdoor activities into intelligent health experiences.
 
@@ -33,7 +33,7 @@ visit - https://manipal-pocket-quest.vercel.app/
   - Travelers unaware of regional health risks and pandemic zones
 - **Critical Gap**: No unified platform combining location-based health intelligence with AI-powered assistance
 
-## 🚀 Our Solution - Manipal PocketQuest
+## 🚀 Our Solution - Manipal PokeQuest
 
 ### Core Innovation
 Location-based health guardian that transforms outdoor activities into intelligent health experiences.

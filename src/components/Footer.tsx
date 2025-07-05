@@ -26,7 +26,7 @@ const Footer = () => {
               <div className="logo-icon">
                 <span className="logo-text">P</span>
               </div>
-              <span className="brand-name">PocketQuest</span>
+              <span className="brand-name">Manipal PokeQuest</span>
             </div>
             <p className="footer-description">
               Transforming health awareness through gamification and real-time data. 
@@ -66,7 +66,7 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="footer-bottom">
-          <p>© 2024 PocketQuest. All rights reserved.</p>
+          <p>© 2024 Manipal PokeQuest. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -10,7 +10,7 @@ const TestimonialsSection = () => {
       avatar: "👩‍⚕️",
       role: "Healthcare Worker",
       rating: 5,
-      text: "PocketQuest helped me stay informed about health risks in my community. The real-time alerts are incredibly valuable for my work."
+              text: "Manipal PokeQuest helped me stay informed about health risks in my community. The real-time alerts are incredibly valuable for my work."
     },
     {
       name: "Mike Rodriguez",
@@ -24,7 +24,7 @@ const TestimonialsSection = () => {
       avatar: "👨‍⚕️",
       role: "Medical Professional",
       rating: 5,
-      text: "As a doctor, I appreciate how PocketQuest educates patients about health risks in an engaging, accessible way."
+              text: "As a doctor, I appreciate how Manipal PokeQuest educates patients about health risks in an engaging, accessible way."
     }
   ];
 

@@ -22,7 +22,7 @@ const Header = () => {
             <div className="logo-icon">
               <span className="logo-text">P</span>
             </div>
-            <span className="brand-name">PocketQuest</span>
+            <span className="brand-name">Manipal PokeQuest</span>
           </div>
 
           {/* Desktop Navigation */}
