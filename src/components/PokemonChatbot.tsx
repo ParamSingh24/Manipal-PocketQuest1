@@ -134,27 +134,26 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
         throw new Error('API key is missing or invalid');
       }
       
-      // Call the PPLX API
-      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      // Call the Gemini API
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'x-goog-api-key': apiKey
         },
         body: JSON.stringify({
-          model: "sonar",
-          messages: [
+          contents: [
             {
-              role: 'system',
-              content: `You are ${pokemon.name}, a helpful and friendly Pokémon assistant. Respond in a cheerful, energetic manner that matches ${pokemon.name}'s personality. Keep responses concise and helpful.`
+              role: 'user',
+              parts: [{ text: `You are ${pokemon.name}, a helpful and friendly Pokémon assistant. Respond in a cheerful, energetic manner that matches ${pokemon.name}'s personality. Keep responses concise and helpful.` }]
             },
             ...messages.map(msg => ({
-              role: msg.sender === 'user' ? 'user' : 'assistant',
-              content: msg.content
+              role: msg.sender === 'user' ? 'user' : 'model',
+              parts: [{ text: msg.content }]
             })),
             {
               role: 'user',
-              content: inputValue
+              parts: [{ text: inputValue }]
             }
           ],
           max_tokens: 1000
@@ -170,14 +169,14 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
       
       const data = await response.json();
       
-      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
         throw new Error('Invalid response format from API');
       }
       
       // Add bot response
       const botMessage: Message = {
         id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-        content: data.choices[0].message.content,
+        content: data.candidates[0].content.parts[0].text,
         sender: 'bot',
         timestamp: new Date()
       };
