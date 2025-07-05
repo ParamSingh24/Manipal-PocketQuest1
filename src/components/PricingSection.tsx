@@ -13,7 +13,9 @@ const PricingSection = () => {
         "Basic health alerts",
         "Weather notifications",
         "Community access",
-        "Basic AI assistance"
+        "Basic AI assistance",
+        "Basic Pokemon Quests",
+        "Free Forever"
       ],
       highlighted: false
     },
