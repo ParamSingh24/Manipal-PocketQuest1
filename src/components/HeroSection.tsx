@@ -139,102 +139,85 @@ const HeroSection = () => {
             style={{ perspective: '1000px' }}
           >
             <div className="character-container">
-              {/* Pokemon Card Container with 3D Rotation and Loading/Error Handling */}
-              <motion.div
-                className="character-circle"
-                // Apply the mouse-based 3D rotation here
-                // We use `motion.div` directly to apply `style` and `transition` props
-                // and to allow Framer Motion to handle the transformation smoothly.
-                style={{
-                  transformStyle: 'preserve-3d', // Crucial for children to maintain 3D position
-            
-                }}
-                transition={{
-                  type: "spring", // Spring animation for a natural feel during mouse movement
-                  stiffness: 150,
-                  damping: 15,
-                  mass: 1,
-                  duration: 0.1 // Fast transition for responsiveness
-                }}
-              >
-                {/* AnimatePresence for graceful unmounting of loading/error/pokemon states */}
-                <AnimatePresence mode="wait">
-                  {loadingPokemon ? (
+              {/* Removed character-circle for a cleaner look */}
+              {/* AnimatePresence for graceful unmounting of loading/error/pokemon states */}
+              <AnimatePresence mode="wait">
+                {loadingPokemon ? (
+                  <motion.div
+                    key="loading" // Unique key for AnimatePresence
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      color: 'white',
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      width: '100%',
+                    }}
+                  >
+                    Loading Pokémon...
                     <motion.div
-                      key="loading" // Unique key for AnimatePresence
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                      style={{
-                        color: 'white',
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '100%',
-                        width: '100%',
-                      }}
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 0.2, repeat: Infinity, ease: "linear" }}
+                      style={{ display: 'inline-block', marginLeft: '10px', fontSize: '2rem' }}
                     >
-                      Loading Pokémon...
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 0.2, repeat: Infinity, ease: "linear" }}
-                        style={{ display: 'inline-block', marginLeft: '10px', fontSize: '2rem' }}
-                      >
 
-                      </motion.div>
                     </motion.div>
-                  ) : pokemonError ? (
-                    <motion.div
-                      key="error" // Unique key for AnimatePresence
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                      style={{
-                        color: 'red',
-                        textAlign: 'center',
-                        fontSize: '1.2rem',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '100%',
-                        width: '100%',
-                      }}
-                    >
-                      {pokemonError}
-                    </motion.div>
-                  ) : (
-                    // When Pokemon is loaded, add entry animation to PokemonCard
-                    <motion.div
-                      key={randomPokemon?.id || "pokemon-card"} // Key for AnimatePresence. Use Pokemon ID for re-animation on new pokemon.
-                      initial={{ opacity: 0, scale: 0.8, rotateY: 90 }} // Start rotated and small
-                      animate={{ opacity: 1, scale: 1, rotateY: 0 }} // Animate to full size and no rotation
-                      exit={{ opacity: 0, scale: 0.8, rotateY: -90 }} // Exit animation if component unmounts
-                      transition={{
-                        type: "spring",
-                        stiffness: 100,
-                        damping: 10,
-                        delay: 0.2, // Small delay after loading message disappears
-                        duration: 0.6 // Overall animation duration for the card
-                      }}
-                      style={{
-                        width: '100%', // Ensure the card takes full space within its container
-                        height: '100%',
-                        display: 'flex', // To center content if card isn't exactly 100%
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backfaceVisibility: 'hidden', // Prevents flickering on rotation
-                      }}
-                    >
-                      <PokemonCard pokemon={randomPokemon} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                  </motion.div>
+                ) : pokemonError ? (
+                  <motion.div
+                    key="error" // Unique key for AnimatePresence
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    style={{
+                      color: 'red',
+                      textAlign: 'center',
+                      fontSize: '1.2rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      height: '100%',
+                      width: '100%',
+                    }}
+                  >
+                    {pokemonError}
+                  </motion.div>
+                ) : (
+                  // When Pokemon is loaded, add entry animation to PokemonCard
+                  <motion.div
+                    key={randomPokemon?.id || "pokemon-card"} // Key for AnimatePresence. Use Pokemon ID for re-animation on new pokemon.
+                    initial={{ opacity: 0, scale: 0.8, rotateY: 90 }} // Start rotated and small
+                    animate={{ opacity: 1, scale: 1, rotateY: 0 }} // Animate to full size and no rotation
+                    exit={{ opacity: 0, scale: 0.8, rotateY: -90 }} // Exit animation if component unmounts
+                    transition={{
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 10,
+                      delay: 0.2, // Small delay after loading message disappears
+                      duration: 0.6 // Overall animation duration for the card
+                    }}
+                    style={{
+                      width: '100%', // Ensure the card takes full space within its container
+                      height: '100%',
+                      display: 'flex', // To center content if card isn't exactly 100%
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backfaceVisibility: 'hidden', // Prevents flickering on rotation
+                    }}
+                  >
+                    <PokemonCard pokemon={randomPokemon} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {/* End removed character-circle */}
 
               {/* Floating elements (keep their existing animations) */}
               <motion.div

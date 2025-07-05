@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
@@ -11,6 +10,7 @@ const Header = () => {
     { name: 'Community', href: '#community' },
     { name: 'Challenges', href: '#challenges' },
     { name: 'Rewards', href: '#rewards' },
+    { name: 'Outbreak Map', href: '/outbreak-map' },
   ];
 
   return (
@@ -38,7 +38,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* User Profile & Theme Toggle & Mobile Menu */}
+          {/* User Profile, Theme Toggle & Mobile Menu */}
           <div className="header-actions">
             <ThemeToggle />
             <div className="user-profile">
