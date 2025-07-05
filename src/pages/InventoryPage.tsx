@@ -1,6 +1,7 @@
 import React from 'react';
 import { useInventory } from '@/contexts/InventoryContext';
 import PokemonCardInventory from '@/components/PokemonCardInventory';
+import ReturnHome from '@/components/ReturnHome';
 import { Link } from 'react-router-dom';
 
 const styles = {
@@ -37,6 +38,7 @@ export default function InventoryPage() {
 
     return (
         <div>
+            
             <h1 style={styles.header}>My Pokémon Collection</h1>
             {inventory.length > 0 ? (
                 <div style={styles.grid}>
@@ -49,6 +51,7 @@ export default function InventoryPage() {
                     Your inventory is empty. <Link to="/catch" style={styles.link}>Go catch some!</Link>
                 </p>
             )}
+            <ReturnHome />
         </div>
     );
 }

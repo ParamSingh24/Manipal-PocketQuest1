@@ -24,7 +24,13 @@ const NewsSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="features-section" style={{ margin: '2rem 0' }}>
+    <section className="features-section" style={{
+
+      paddingBottom: '2em',
+      margin: '2rem 0' ,
+      
+  
+    }}>
       <div className="features-container">
         <div className="features-header">
           <h2 className="features-title">Latest Health News</h2>

@@ -37,8 +37,6 @@ const NotFoundContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* Reverted background to original Manipal PokeQuest gradient */
-  background: linear-gradient(135deg, #ff7e5f, #feb47b);
   color: white;
   font-family: 'Poppins', sans-serif; /* Assuming Poppins or similar font for Manipal PokeQuest */
   text-align: center;

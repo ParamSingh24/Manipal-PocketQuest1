@@ -27,8 +27,10 @@ const TechnologySection = () => {
   ];
 
   return (
-    <section className="technology-section">
-      <div className="technology-container">
+    <section className="technology-section" style={{
+      background: 'var(--background-secondary)',
+    }}>
+      <div className="technology-container" >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

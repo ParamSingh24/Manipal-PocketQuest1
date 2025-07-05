@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
@@ -13,7 +12,9 @@ const PricingSection = () => {
         "Basic health alerts",
         "Weather notifications",
         "Community access",
-        "Basic AI assistance"
+        "Basic AI assistance",
+        "Basic Pokemon Quests",
+        "Free Forever"
       ],
       highlighted: false
     },
@@ -106,3 +107,6 @@ const PricingSection = () => {
 };
 
 export default PricingSection;
+
+
+

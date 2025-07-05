@@ -14,8 +14,7 @@ const Header = () => {
     { name: 'Inventory', href: '/inventory' },
     { name: 'Leaderboard', href: '/leaderboard' },
     { name: 'Pokémon Chatbot', href: '/chatbot' },
-    { name: 'Challenges', href: '/challenges' },
-    { name: 'Outbreak Map', href: '/outbreak-map' }
+    { name: 'Challenges', href: '/challenges' }
   ];
 
   return (
@@ -26,7 +25,7 @@ const Header = () => {
           <Link to="/" className="logo">
             <div className="logo-icon" style={{ display: 'flex', alignItems: 'center' }}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
-              <span className="logo-text">P</span>
+              <span className="logo-text"></span>
             </div>
             <Link to="/chatbot" className="chatbot-icon" style={{ marginLeft: 16 }}>
               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Chat_icon.svg/1200px-Chat_icon.svg.png" alt="Chatbot" style={{ width: 32, height: 32 }} />

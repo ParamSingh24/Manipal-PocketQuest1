@@ -26,7 +26,12 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section className="features-section">
+    <section className="features-section"  style={{
+      borderBottom: '2.5px solid transparent',
+      padding: '2em',
+      background: 'var(--background-secondary)',
+      marginBottom:'0px'
+    }}>
       <div className="features-container">
         {/* Section Header */}
         <motion.div

@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Github, Twitter, Mail } from 'lucide-react';
+import ErrorButton from './ErrorButton';
+import LoadingButton from './LoadingButton';
 
 const Footer = () => {
   const footerLinks = [
@@ -17,21 +19,28 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="footer">
+    <footer className="footer" style={{background: 'var(--background-primary)'}}>
       <div className="footer-container">
         <div className="footer-grid">
           {/* Brand */}
           <div className="footer-brand">
             <div className="footer-logo">
               <div className="logo-icon">
-                <span className="logo-text">P</span>
+                <div className="logo-icon" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
+              <span className="logo-text"></span>
+            </div>
               </div>
               <span className="brand-name">Manipal PokeQuest</span>
             </div>
-            <p className="footer-description">
+            <p className="footer-description" >
               Transforming health awareness through gamification and real-time data. 
               Your journey to better health starts here.
             </p>
+            <div style={{display:'flex', flexDirection:'row', gap:'10px'}}>
+            <ErrorButton />
+            <LoadingButton />
+            </div>
           </div>
 
           {/* Links */}
