@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // Import AnimatePresence
-import PokemonCard from './PokemonCard'; // Ensure this path is correct
+import PokemonCardHero from './PokemonCardHero'; // Ensure this path is correct
 import { Pokemon } from '@/types'; // Ensure this path is correct for your project
 import { ArrowRight } from 'lucide-react'; // Import arrow icon
+import { text } from 'stream/consumers';
 
 const HeroSection = () => {
   // State to hold the random Pokemon data
@@ -90,6 +91,14 @@ const HeroSection = () => {
     fontWeight: 400,
     fontStyle: 'normal',
   };
+    const heroDescriptionStyle2: React.CSSProperties = {
+   fontFamily: '"Young Serif", serif',
+    fontSize: '1rem',
+    lineHeight: 1.2,
+    color: '#FFFFFF',
+    textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+    letterSpacing: '0.05em',
+  };
 
   return (
     <section className="hero-section">
@@ -119,8 +128,11 @@ const HeroSection = () => {
               Transform your health journey into an exciting quest. Explore real-time disease outbreak data,
               weather intelligence, and AI health assistance, all while interacting with your favorite characters.
             </p>
+            <p className="hero-description" style={heroDescriptionStyle}>
+              Collect Pokemon Cards By Performing Daily Challenges And Quizzes To Climb The Leaderboards
+            </p>
 
-            <button className="cssbuttons-io-button">
+            <button className="cssbuttons-io-button" style={heroDescriptionStyle2}>
               Start Your Quest
               <div className="icon">
                 <ArrowRight />
@@ -213,24 +225,18 @@ const HeroSection = () => {
                       backfaceVisibility: 'hidden', // Prevents flickering on rotation
                     }}
                   >
-                    <PokemonCard pokemon={randomPokemon} />
+                    <div className="parent">
+                      <PokemonCardHero/>
+                    
+                    </div>
+                    
                   </motion.div>
                 )}
               </AnimatePresence>
               {/* End removed character-circle */}
 
               {/* Floating elements (keep their existing animations) */}
-              <motion.div
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="floating-accent floating-accent-1"
-              ></motion.div>
 
-              <motion.div
-                animate={{ y: [10, -10, 10] }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="floating-accent floating-accent-2"
-              ></motion.div>
             </div>
           </motion.div>
         </div>
