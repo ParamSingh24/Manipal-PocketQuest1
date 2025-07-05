@@ -1,6 +1,7 @@
 import React from 'react';
 import { useInventory } from '@/contexts/InventoryContext';
 import PokemonCard from '@/components/PokemonCard';
+import ReturnHome from '@/components/ReturnHome';
 import { Link } from 'react-router-dom';
 
 const styles = {
@@ -75,6 +76,8 @@ export default function InventoryPage() {
                     <p>Time to start your adventure!</p>
                 </div>
             )}
+
+            <ReturnHome></ReturnHome>
         </div>
     );
 }

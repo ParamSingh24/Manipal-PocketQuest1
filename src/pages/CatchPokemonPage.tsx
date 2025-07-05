@@ -7,12 +7,14 @@ import Pokeball from '@/components/Pokeball';
 import { Pokemon, QuizQuestion } from '@/types';
 import { quizQuestions } from '@/data/quizData';
 import '@/styles/animations.css';
+import ReturnHome from '@/components/ReturnHome';
 
 const styles = {
     container: {
         width: '100%',
         height: '100vh',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         overflow: 'hidden',
@@ -112,7 +114,7 @@ export default function CatchPokemonPage() {
             {(gameState === 'QUIZ' || gameState === 'REWARD') && currentQuestion && currentPokemon && (
                 <div className={`card-flipper ${isFlipping ? 'is-flipping' : ''}`}>
                     <div className={`card-front ${isWrong ? 'shake' : ''}`}>
-                        <QuizCard question={currentQuestion} onAnswer={handleAnswer} />
+                        <QuizCard question={currentQuestion} onAnswer={handleAnswer}  />
                     </div>
                     <div className="card-back">
                         {/* This now correctly shows the pokemon from the current round */}
@@ -120,6 +122,7 @@ export default function CatchPokemonPage() {
                     </div>
                 </div>
             )}
+              <ReturnHome />
         </main>
     );
 }
