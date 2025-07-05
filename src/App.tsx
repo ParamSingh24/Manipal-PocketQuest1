@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import CatchPokemonPage from "./pages/CatchPokemonPage";
 import InventoryPage from "./pages/InventoryPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import LoadingScreen from "./pages/LoadingScreen";
 import ChatbotPage from "./pages/ChatbotPage"; // Import the new ChatbotPage
 import ChallengesPage from "./pages/ChallengesPage";   // New Page
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/catch" element={<CatchPokemonPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
             <Route path="/leaderboard" element={<LeaderboardPage />} />
+            <Route path="/loading" element={<LoadingScreen/>} />
             <Route path="/chatbot" element={<ChatbotPage />} /> {/* Pokemon Chatbot route */}
             <Route path="/challenges" element={<ChallengesPage />} />
             <Route path="*" element={<NotFound />} />

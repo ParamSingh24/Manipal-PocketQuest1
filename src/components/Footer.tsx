@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Github, Twitter, Mail } from 'lucide-react';
+import ErrorButton from './ErrorButton';
+import LoadingButton from './LoadingButton';
 
 const Footer = () => {
   const footerLinks = [
@@ -35,6 +37,10 @@ const Footer = () => {
               Transforming health awareness through gamification and real-time data. 
               Your journey to better health starts here.
             </p>
+            <div style={{display:'flex', flexDirection:'row', gap:'10px'}}>
+            <ErrorButton />
+            <LoadingButton />
+            </div>
           </div>
 
           {/* Links */}

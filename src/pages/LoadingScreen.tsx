@@ -1,3 +1,4 @@
+import ReturnHome from '@/components/ReturnHome';
 import React, { useState, useEffect } from 'react';
 
 // --- Helper Types for PokeAPI data ---
@@ -36,8 +37,7 @@ const LoadingScreen: React.FC = () => {
   const styles = {
     // Main container with the gradient background from your design
     container: `
-      flex flex-col items-center justify-center min-h-screen 
-      bg-gradient-to-br from-yellow-300 via-orange-400 to-pink-500 
+      flex flex-col items-center justify-center min-h-screen  
       p-4 text-white font-['Roboto_Serif']
     `,
     // The glass-morphism card with new hover and transition effects
@@ -64,7 +64,7 @@ const LoadingScreen: React.FC = () => {
     `,
     // Loading text and dots container
     loadingContainer: `
-      mt-6 flex items-center justify-center space-x-1 text-xl font-light
+      mt-6 flex items-center justify-center space-x-2 text-xl font-light pt-8
     `,
     // Animated loading dots
     loadingDot: `
@@ -210,6 +210,7 @@ const LoadingScreen: React.FC = () => {
             font-family: 'Roboto Serif', serif;
         }
       `}</style>
+      <ReturnHome />
     </div>
   );
 };
