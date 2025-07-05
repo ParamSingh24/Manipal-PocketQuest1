@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import VoiceNavigation from './VoiceNavigation';
+import Narrator from './Narrator';
 import { Link } from 'react-router-dom';
 import Pokeball from './Pokeball';
 
@@ -26,6 +28,9 @@ const Header = () => {
               <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
               <span className="logo-text">P</span>
             </div>
+            <Link to="/chatbot" className="chatbot-icon" style={{ marginLeft: 16 }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Chat_icon.svg/1200px-Chat_icon.svg.png" alt="Chatbot" style={{ width: 32, height: 32 }} />
+            </Link>
             <span className="brand-name">Manipal PokeQuest</span>
           </Link>
 
@@ -44,6 +49,11 @@ const Header = () => {
 
           {/* User Profile, Theme Toggle & Mobile Menu */}
           <div className="header-actions">
+            <VoiceNavigation />
+            <Narrator 
+              text="Welcome to Manipal PokeQuest. Navigate through the menu to explore different features like catching Pokemon, viewing your inventory, checking the leaderboard, chatting with our AI assistant, taking health challenges, and exploring disease outbreak data."
+              className="header-narrator"
+            />
             <ThemeToggle />
             <div className="user-profile">
               <div className="profile-avatar">

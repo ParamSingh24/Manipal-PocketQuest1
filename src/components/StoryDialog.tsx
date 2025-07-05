@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Pokemon } from '@/types';
+import { Star, Trophy, Zap } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface StoryDialogProps {
   isOpen: boolean;
@@ -11,6 +13,10 @@ interface StoryDialogProps {
 }
 
 const StoryDialog: React.FC<StoryDialogProps> = ({ isOpen, onClose, pokemon }) => {
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
+  const navigate = useNavigate();
+
   // If no pokemon is provided, use a default one
   const defaultPokemon = {
     id: 25,
@@ -22,7 +28,7 @@ const StoryDialog: React.FC<StoryDialogProps> = ({ isOpen, onClose, pokemon }) =
 
   const activePokemon = pokemon || defaultPokemon;
   
-  // Story content - health benefits and app features
+  // Simple story content
   const storyContent = [
     {
       title: 'Welcome to Your Health Adventure!',
@@ -42,111 +48,235 @@ const StoryDialog: React.FC<StoryDialogProps> = ({ isOpen, onClose, pokemon }) =
     }
   ];
 
-  const [currentStoryIndex, setCurrentStoryIndex] = React.useState(0);
-  
   const handleNext = React.useCallback(() => {
     if (currentStoryIndex < storyContent.length - 1) {
       setCurrentStoryIndex(prevIndex => prevIndex + 1);
     } else {
-      // End of story, close the dialog
-      onClose();
-      // Reset for next time
-      setCurrentStoryIndex(0);
+      // End of story, show completion
+      setShowCompletion(true);
     }
-  }, [currentStoryIndex, storyContent.length, onClose]);
+  }, [currentStoryIndex, storyContent.length]);
+
+  const handleComplete = () => {
+    setShowCompletion(false);
+    setCurrentStoryIndex(0);
+    onClose();
+    // Navigate to catch Pokemon page
+    navigate('/catch');
+  };
 
   // Reset story index when dialog is closed
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isOpen) {
       setCurrentStoryIndex(0);
+      setShowCompletion(false);
     }
   }, [isOpen]);
 
   // Add keyboard navigation
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isOpen) return;
       
       if (e.key === 'ArrowRight' || e.key === 'Enter' || e.key === ' ') {
-        handleNext();
+        e.preventDefault();
+        if (showCompletion) {
+          handleComplete();
+        } else {
+          handleNext();
+        }
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, currentStoryIndex, handleNext]);
+  }, [isOpen, currentStoryIndex, showCompletion, handleNext, handleComplete]);
+
+  // Show completion screen
+  if (showCompletion) {
+    return (
+      <Dialog open={isOpen} onOpenChange={(open) => !open && handleComplete()}>
+        <DialogContent className="sm:max-w-[700px] bg-gradient-to-br from-yellow-50 via-orange-50 to-red-50 border-2 border-yellow-200 shadow-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600 mb-4 flex items-center justify-center">
+              <Trophy className="w-8 h-8 mr-3 text-yellow-500" />
+              Quest Completed!
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="text-center py-6">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="mb-6"
+            >
+              <div className="text-2xl font-bold text-gray-800 mb-2">
+                🎉 You completed 500 steps! 🎉
+              </div>
+              <div className="text-lg text-gray-600 mb-6">
+                Here is your reward:
+              </div>
+            </motion.div>
+
+            {/* Pokemon Reward Card */}
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="bg-white rounded-2xl p-6 shadow-xl border-2 border-yellow-300 max-w-md mx-auto"
+            >
+              <motion.div
+                animate={{ 
+                  y: [0, -10, 0],
+                  scale: [1, 1.05, 1]
+                }}
+                transition={{ 
+                  duration: 2, 
+                  ease: "easeInOut", 
+                  repeat: Infinity,
+                  repeatDelay: 1
+                }}
+                className="relative"
+              >
+                <img 
+                  src={activePokemon.image} 
+                  alt={activePokemon.name} 
+                  className="w-32 h-32 object-contain mx-auto mb-4"
+                />
+                
+                {/* Glow effect */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full filter blur-xl opacity-50"
+                  animate={{ 
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    ease: "easeInOut", 
+                    repeat: Infinity,
+                    repeatType: "reverse" 
+                  }}
+                />
+              </motion.div>
+              
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2 capitalize">
+                  {activePokemon.name}
+                </h3>
+                <div className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-1 rounded-full text-sm font-bold mb-3 uppercase">
+                  {activePokemon.type}
+                </div>
+                <p className="text-gray-600 text-sm">
+                  {activePokemon.description}
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="mt-6"
+            >
+              <Button 
+                onClick={handleComplete}
+                className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white px-10 py-3 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
+                autoFocus
+              >
+                <Zap className="w-5 h-5 mr-2" />
+                Continue Adventure!
+              </Button>
+            </motion.div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[500px] bg-gradient-to-br from-blue-50 to-purple-50 border-2 border-blue-200">
+      <DialogContent className="sm:max-w-[700px] bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-2 border-blue-200 shadow-2xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center text-blue-700">
+          <DialogTitle className="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-4">
             {storyContent[currentStoryIndex].title}
           </DialogTitle>
         </DialogHeader>
         
-        <div className="flex flex-col items-center space-y-4 py-4">
-          {/* Pokemon Image */}
+        <div className="flex flex-col lg:flex-row items-center space-y-6 lg:space-y-0 lg:space-x-8 py-6">
+          {/* Enhanced Pokemon Display */}
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="w-40 h-40 relative"
-            key={`pokemon-${currentStoryIndex}`} // Re-render on story change
+            className="w-64 h-64 relative flex-shrink-0"
+            key={`pokemon-${currentStoryIndex}`}
           >
+            {/* Pokemon Image */}
             <motion.img 
               src={activePokemon.image} 
               alt={activePokemon.name} 
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain z-10 relative"
               animate={{ 
-                y: [0, -10, 0],
-                scale: [1, 1.05, 1]
+                y: [0, -15, 0],
+                scale: [1, 1.08, 1]
               }}
               transition={{ 
-                duration: 1.5, 
+                duration: 2, 
                 ease: "easeInOut", 
-                times: [0, 0.5, 1],
                 repeat: Infinity,
-                repeatDelay: 1
+                repeatDelay: 0.5
               }}
             />
-            {/* Glow effect */}
+            
+            {/* Enhanced glow effect */}
             <motion.div 
-              className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full filter blur-xl -z-10"
-              animate={{ opacity: [0.2, 0.4, 0.2] }}
+              className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full filter blur-2xl -z-10"
+              animate={{ 
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1]
+              }}
               transition={{ 
                 duration: 2, 
                 ease: "easeInOut", 
                 repeat: Infinity,
                 repeatType: "reverse" 
               }}
-            ></motion.div>
+            />
           </motion.div>
           
-          {/* Story Text */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentStoryIndex}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="text-center px-4"
-            >
-              <DialogDescription className="text-lg text-gray-700">
-                {storyContent[currentStoryIndex].content}
-              </DialogDescription>
-            </motion.div>
-          </AnimatePresence>
+          {/* Static Story Text */}
+          <div className="flex-1 min-w-0">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentStoryIndex}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="relative"
+              >
+                <div className="text-xl text-gray-800 leading-relaxed font-medium" style={{ minHeight: '120px' }}>
+                  {storyContent[currentStoryIndex].content}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
         
-        <div className="flex flex-col items-center mt-4 space-y-3">
-          {/* Progress indicator */}
-          <div className="flex space-x-2 mb-2">
+        <div className="flex flex-col items-center mt-6 space-y-4">
+          {/* Enhanced Progress indicator */}
+          <div className="flex space-x-3 mb-4">
             {storyContent.map((_, index) => (
-              <div 
+              <motion.div 
                 key={index} 
-                className={`h-2 w-2 rounded-full transition-colors duration-300 ${index === currentStoryIndex ? 'bg-blue-500' : 'bg-gray-300'}`}
+                className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                  index === currentStoryIndex 
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 scale-125' 
+                    : 'bg-gray-300'
+                }`}
+                whileHover={{ scale: 1.2 }}
                 aria-hidden="true"
               />
             ))}
@@ -154,11 +284,25 @@ const StoryDialog: React.FC<StoryDialogProps> = ({ isOpen, onClose, pokemon }) =
           
           <Button 
             onClick={handleNext}
-            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-8 py-2 rounded-full font-medium"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-10 py-3 rounded-full font-bold text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
             autoFocus
-            aria-label={currentStoryIndex < storyContent.length - 1 ? 'Next story page' : 'Start your adventure'}
+            aria-label={currentStoryIndex < storyContent.length - 1 ? 'Next story page' : 'Complete quest'}
           >
-            {currentStoryIndex < storyContent.length - 1 ? 'Next' : 'Start Adventure!'}
+            <motion.span
+              animate={currentStoryIndex < storyContent.length - 1 ? {} : { scale: [1, 1.1, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              {currentStoryIndex < storyContent.length - 1 ? 'Next' : 'Complete Quest!'}
+            </motion.span>
+            {currentStoryIndex === storyContent.length - 1 && (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="ml-2"
+              >
+                <Star className="w-5 h-5" />
+              </motion.div>
+            )}
           </Button>
         </div>
       </DialogContent>

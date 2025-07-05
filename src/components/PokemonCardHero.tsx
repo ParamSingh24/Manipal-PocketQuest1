@@ -409,3 +409,5 @@ const StyleInjector: React.FC = () => {
     }, []);
     return null;
 };
+
+export { PokemonCard as PokemonCardHero };

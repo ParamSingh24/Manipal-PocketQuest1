@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, X } from 'lucide-react';
+import { Send, X, Mic, MicOff } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 // Define the Pokemon interface for the chatbot
@@ -60,6 +59,7 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
   isOpen, 
   onClose, 
   apiKey,
+  // Support both Gemini and Perplexity
   pokemon = {
     name: 'Pikachu',
     image: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
@@ -69,8 +69,36 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isListening, setIsListening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const recognitionRef = useRef<any>(null);
+  
+  // Initialize speech recognition
+  useEffect(() => {
+    if (typeof window !== 'undefined' && (window.SpeechRecognition || window.webkitSpeechRecognition)) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+
+      recognitionRef.current.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue(prev => prev + transcript);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onerror = (event: any) => {
+        console.error('Speech recognition error:', event.error);
+        setIsListening(false);
+      };
+
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+  }, []);
   
   // Handle dialog open/close and Pokémon changes
   useEffect(() => {
@@ -114,92 +142,70 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
   
   // Handle sending a message
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() || isLoading) return;
     
-    // Add user message
+    const userInput = inputValue.trim();
+    setInputValue('');
+    setIsLoading(true);
+    
+    // Add user message immediately
     const userMessage: Message = {
       id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-      content: inputValue,
+      content: userInput,
       sender: 'user',
       timestamp: new Date()
     };
     
     setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-    setIsLoading(true);
     
     try {
-      // Validate API key before making the request
-      if (!apiKey || apiKey.trim() === '') {
-        throw new Error('API key is missing or invalid');
-      }
-      
-      // Call the Gemini API
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+      const response = await fetch('https://api.perplexity.ai/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey
+          'Authorization': `Bearer ${import.meta.env.VITE_PERPLEXITY_API_KEY}`
         },
         body: JSON.stringify({
-          contents: [
+          model: 'sonar-pro',
+          messages: [
             {
-              role: 'user',
-              parts: [{ text: `You are ${pokemon.name}, a helpful and friendly Pokémon assistant. Respond in a cheerful, energetic manner that matches ${pokemon.name}'s personality. Keep responses concise and helpful.` }]
+              role: 'system',
+              content: `You are ${pokemon.name}, a helpful and friendly Pokémon assistant. Respond in a cheerful, energetic manner that matches ${pokemon.name}'s personality. Keep responses concise and helpful.`
             },
-            ...messages.map(msg => ({
-              role: msg.sender === 'user' ? 'user' : 'model',
-              parts: [{ text: msg.content }]
-            })),
             {
               role: 'user',
-              parts: [{ text: inputValue }]
+              content: userInput
             }
           ],
-          max_tokens: 1000
+          stream: false
         })
       });
       
       if (!response.ok) {
-        const errorData = await response.json().catch(() => response.text());
-        console.error('API Error Response:', errorData);
-        const errorMessage = typeof errorData === 'string' ? errorData : (errorData.error?.message || `API request failed with status ${response.status}`);
-        throw new Error(errorMessage);
+        throw new Error(`API request failed with status ${response.status}`);
       }
       
       const data = await response.json();
       
-      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
+      if (!data.choices || !data.choices[0] || !data.choices[0].message) {
         throw new Error('Invalid response format from API');
       }
       
-      // Add bot response
       const botMessage: Message = {
         id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
-        content: data.candidates[0].content.parts[0].text,
+        content: data.choices[0].message.content,
         sender: 'bot',
         timestamp: new Date()
       };
       
       setMessages(prev => [...prev, botMessage]);
+      
     } catch (error) {
-      console.error('Error calling PPLX API:', error);
+      console.error('Chat error:', error);
       
-      // Determine the appropriate error message
-      let errorContent = `Oops! ${pokemon.name} is having trouble connecting. Please try again later.`;
-      
-      if (error instanceof Error) {
-        if (error.message.toLowerCase().includes('api key')) {
-          errorContent = `Oops! It seems there's an issue with the API key. Please make sure it's correct and has been properly configured.`;
-        } else {
-          errorContent = `Sorry, I'm having a little trouble thinking right now. Here's the error I encountered: ${error.message}`;
-        }
-      }
-      
-      // Add error message
       const errorMessage: Message = {
-        id: Date.now().toString(),
-        content: errorContent,
+        id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+        content: `Sorry, I'm having trouble connecting right now. Please try again!`,
         sender: 'bot',
         timestamp: new Date()
       };
@@ -220,6 +226,36 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
+    }
+  };
+  
+  const startListening = () => {
+    if (recognitionRef.current && !isListening) {
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+      } catch (error) {
+        console.error('Error starting speech recognition:', error);
+      }
+    }
+  };
+
+  const stopListening = () => {
+    if (recognitionRef.current && isListening) {
+      try {
+        recognitionRef.current.stop();
+        setIsListening(false);
+      } catch (error) {
+        console.error('Error stopping speech recognition:', error);
+      }
+    }
+  };
+
+  const toggleListening = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      startListening();
     }
   };
   
@@ -347,8 +383,24 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
             placeholder={`Ask ${pokemon.name} something...`}
             className="min-h-[60px] max-h-[120px] resize-none bg-white dark:bg-zinc-800 text-black dark:text-white border border-primary/40 focus:ring-2 focus:ring-primary"
             autoFocus
-            disabled={isLoading ? true : false}
+            disabled={isLoading}
           />
+          <Button 
+            onClick={toggleListening} 
+            disabled={isLoading}
+            size="icon"
+            className="mb-[3px]"
+            style={{
+              backgroundColor: isListening ? '#ef4444' : getTypeColor(pokemon.type),
+            }}
+            title={isListening ? 'Stop listening' : 'Start voice input'}
+          >
+            {isListening ? (
+              <MicOff className="h-4 w-4" />
+            ) : (
+              <Mic className="h-4 w-4" />
+            )}
+          </Button>
           <Button 
             onClick={handleSendMessage} 
             disabled={!inputValue.trim() || isLoading}
