@@ -98,6 +98,7 @@ body {
 }
 
 .logo-icon {
+  font-family:'"Young Serif", serif';
   width: 2rem;
   height: 2rem;
   background: linear-gradient(135deg, var(--color-primary-yellow), var(--color-primary-orange));
@@ -108,14 +109,17 @@ body {
 }
 
 .logo-text {
+  font-family:'"Young Serif", serif';
   color: white;
   font-weight: 700;
   font-size: 0.875rem;
 }
 
 .brand-name {
-  color: var(--text-primary);
-  font-weight: 700;
+  font-family:'"Young Serif", serif';
+  color: white;
+  font-weight: bold;
+  text-shadow: 0px 2px 4px rgba(8, 8, 8, 0.3), 0px 0px 8px rgba(255, 255, 255, 0.1);
   font-size: 1.25rem;
 }
 
@@ -245,7 +249,7 @@ body {
   justify-content: center;
   background: var(--background-primary);
   overflow: hidden;
-  padding-top: 4rem;
+  padding-top: 1rem;
 }
 
 .hero-background {

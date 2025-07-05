@@ -1,24 +1,25 @@
 import React from 'react';
 import { useInventory } from '@/contexts/InventoryContext';
-import PokemonCard from '@/components/PokemonCard';
+import PokemonCardInventory from '@/components/PokemonCardInventory';
 import { Link } from 'react-router-dom';
 
 const styles = {
-    page: {
-        background: '#23272F',
-        minHeight: '100vh',
-        padding: '50px',
-    },
     header: {
-        color: 'white',
-        textAlign: 'center' as const,
-        marginBottom: '40px',
+        fontFamily: '"Young Serif", serif',
+    fontSize: '3.5rem',
+    lineHeight: 1.2,
+    color: '#FFFFFF',
+    textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+    letterSpacing: '0.05em',
+    textAlign:'center',
+    margin:'20px'
     },
     grid: {
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
         gap: '40px',
         justifyItems: 'center',
+        padding:'10px'
     },
     emptyText: {
         color: 'white',
@@ -35,12 +36,12 @@ export default function InventoryPage() {
     const { inventory } = useInventory();
 
     return (
-        <div style={styles.page}>
+        <div>
             <h1 style={styles.header}>My Pokémon Collection</h1>
             {inventory.length > 0 ? (
                 <div style={styles.grid}>
                     {inventory.map(pokemon => (
-                        <PokemonCard key={pokemon.id} pokemon={pokemon} />
+                        <PokemonCardInventory key={pokemon.id} pokemon={pokemon} />
                     ))}
                 </div>
             ) : (

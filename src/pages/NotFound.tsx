@@ -2,6 +2,34 @@ import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
 
+  const heroTitleStyle: React.CSSProperties = {
+    fontFamily: '"Young Serif", serif',
+    fontSize: '2rem',
+    fontWeight:'bold',
+    lineHeight: 1.2,
+    color: 'yellow',
+    textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+    letterSpacing: '0.05em',
+  };
+    const heroTitleStyle2: React.CSSProperties = {
+    fontFamily: '"Young Serif", serif',
+    fontSize: '4rem',
+    fontWeight:'bolder',
+    lineHeight: 1.2,
+    color: '#FFFFFF',
+    textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+    letterSpacing: '0.05em',
+  };
+  const heroDescriptionStyle: React.CSSProperties = {
+    fontFamily: '"Roboto Serif", serif',
+    fontSize: '2rem',
+    lineHeight: 1.6,
+    marginTop: '20px',
+    marginBottom: '30px',
+    textShadow: '0px 2px 4px rgba(8, 8, 8, 0.3), 0px 0px 8px rgba(255, 255, 255, 0.1)',
+    fontWeight: 400,
+    fontStyle: 'normal',
+  };
 // Styled Components for thematic look and transitions
 const NotFoundContainer = styled.div`
   min-height: 100vh;
@@ -72,19 +100,20 @@ const PokemonImage = styled.img`
 `;
 
 const HomeLink = styled(Link)`
+    font-family: "Young Serif", serif;,
   display: inline-block;
   background-color: #f0c419; /* A golden color, somewhat thematic */
-  color: #333;
+  color: #FFFFFF;
   padding: 15px 30px;
-  border-radius: 50px;
+  border-radius: 10px;
   text-decoration: none;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: all 0.3s ease-in-out; /* Hover effect */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    background-color: #e0b000;
+   color: #000000;
+    background-color: yellow;
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
@@ -130,11 +159,11 @@ const NotFound = () => {
   return (
     <NotFoundContainer>
       <ErrorContent>
-        <ErrorHeading>404</ErrorHeading>
+        <ErrorHeading style={heroTitleStyle2}>404</ErrorHeading>
         {pokemonData ? (
           <div className="error" style={{display:'flex',alignItems:'center',justifyContent:'center',flexDirection: 'column'}}>
-            <ErrorMessage>
-              Oops! <span style={{fontWeight: 'bold', color: '#f0c419'}}>{pokemonData.name}</span> Couldn't find that page.
+            <ErrorMessage style={heroDescriptionStyle}>
+              Oops! <span style={heroTitleStyle}>{pokemonData.name}</span> Couldn't find that page.
               <br /> It seems you've wandered off the path!
             </ErrorMessage>
             <PokemonImage src={pokemonData.imageUrl} alt={pokemonData.name} />

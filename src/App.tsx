@@ -10,7 +10,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CatchPokemonPage from "./pages/CatchPokemonPage"; // New Page
 import InventoryPage from "./pages/InventoryPage";     // New Page
-
+import LeaderboardPage from "./pages/LeaderboardPage"; 
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -28,6 +28,7 @@ const App = () => (
             <Route path="/catch" element={<CatchPokemonPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
 
+            <Route path="/leaderboard" element={<LeaderboardPage />} />
             {/* Your catch-all route remains last */}
             <Route path="*" element={<NotFound />} />
           </Routes>
