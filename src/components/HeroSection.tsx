@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion'; // Import AnimatePresen
 import PokemonCardHero from './PokemonCardHero'; // Ensure this path is correct
 import { Pokemon } from '@/types'; // Ensure this path is correct for your project
 import { ArrowRight } from 'lucide-react'; // Import arrow icon
-import { text } from 'stream/consumers';
+import StoryDialog from './StoryDialog'; // Import the new StoryDialog component
 
 const HeroSection = () => {
   // State to hold the random Pokemon data
   const [randomPokemon, setRandomPokemon] = useState<Pokemon | null>(null);
   const [loadingPokemon, setLoadingPokemon] = useState<boolean>(true);
   const [pokemonError, setPokemonError] = useState<string | null>(null);
+  // State to control the story dialog
+  const [isStoryOpen, setIsStoryOpen] = useState<boolean>(false);
   // Ref to get the bounding box of the visual container for mouse events
   const visualRef = useRef<HTMLDivElement>(null);
 
@@ -132,7 +134,11 @@ const HeroSection = () => {
               Collect Pokemon Cards By Performing Daily Challenges And Quizzes To Climb The Leaderboards
             </p>
 
-            <button className="cssbuttons-io-button" style={heroDescriptionStyle2}>
+            <button 
+              className="cssbuttons-io-button" 
+              style={heroDescriptionStyle2}
+              onClick={() => setIsStoryOpen(true)}
+            >
               Start Your Quest
               <div className="icon">
                 <ArrowRight />
@@ -241,6 +247,12 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
+      {/* Story Dialog */}
+      <StoryDialog 
+        isOpen={isStoryOpen} 
+        onClose={() => setIsStoryOpen(false)} 
+        pokemon={randomPokemon} 
+      />
     </section>
   );
 };

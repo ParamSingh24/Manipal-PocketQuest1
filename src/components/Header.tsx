@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { Menu, X, User } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
+import { Link } from 'react-router-dom';
+import Pokeball from './Pokeball';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Explore', href: '#explore' },
-    { name: 'Community', href: '#community' },
-    { name: 'Challenges', href: '#challenges' },
-    { name: 'Rewards', href: '#rewards' },
-    { name: 'Outbreak Map', href: '/outbreak-map' },
+    { name: 'Catch Pokemon', href: '/catch' },
+    { name: 'Inventory', href: '/inventory' },
+    { name: 'Leaderboard', href: '/leaderboard' },
+    { name: 'Pokémon Chatbot', href: '/chatbot' }
   ];
 
   return (
@@ -18,23 +19,24 @@ const Header = () => {
       <div className="header-container">
         <div className="header-content">
           {/* Logo */}
-          <div className="logo">
-            <div className="logo-icon">
+          <Link to="/" className="logo">
+            <div className="logo-icon" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
               <span className="logo-text">P</span>
             </div>
             <span className="brand-name">Manipal PokeQuest</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="desktop-nav">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 className="nav-link"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -62,14 +64,14 @@ const Header = () => {
           <div className="mobile-nav">
             <nav className="mobile-nav-content">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="mobile-nav-link"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
