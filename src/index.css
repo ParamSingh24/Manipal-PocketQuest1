@@ -941,15 +941,13 @@ body {
 }
 
 .pricing-title {
-  font-family: 'Young Serif',serif !important;
-  font-size: 3rem;
-  font-weight: 500;
+  font-size: 2.5rem;
+  font-weight: 700;
   color: var(--color-primary-blue);
   margin-bottom: 1.5rem;
 }
 
 .pricing-description {
-  font-family: 'Young Serif',serif;
   font-size: 1.125rem;
   color: var(--text-secondary);
   max-width: 32rem;
@@ -976,7 +974,6 @@ body {
   padding: 2rem;
   position: relative;
   transition: all 0.3s ease;
-  border: solid 1px rgba(255, 105, 105, 0.65);
 }
 
 .pricing-card:hover {
@@ -991,7 +988,6 @@ body {
 
 .popular-badge {
   position: absolute;
-  font-family: 'Young Serif',serif;
   top: -0.75rem;
   left: 50%;
   transform: translateX(-50%);
@@ -1000,7 +996,7 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   font-size: 0.75rem;
-  font-weight: 200;
+  font-weight: 600;
 }
 
 .plan-header {
@@ -1009,25 +1005,22 @@ body {
 }
 
 .plan-name {
-  font-family: 'Young Serif',serif;
   font-size: 1.5rem;
-  font-weight: 400;
+  font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
 .plan-price {
   display: flex;
-  font-family: 'Roboto Serif',serif;
   align-items: baseline;
   justify-content: center;
   gap: 0.25rem;
 }
 
 .price {
-  font-family: 'Young Serif',serif;
   font-size: 2.5rem;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--color-primary-orange);
 }
 
@@ -1037,7 +1030,6 @@ body {
 }
 
 .features-list {
-  font-family: 'Roboto Serif',serif;
   list-style: none;
   margin-bottom: 2rem;
 }
@@ -1057,17 +1049,15 @@ body {
 }
 
 .plan-button {
-  font-family: 'Young Serif',serif;
   width: 100%;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   padding: 0.75rem;
   border-radius: 0.5rem;
-  font-weight: 200;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: solid 2px var(--color-primary-orange);
 }
 
 .plan-button:hover {

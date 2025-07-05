@@ -11,7 +11,9 @@ const Header = () => {
     { name: 'Catch Pokemon', href: '/catch' },
     { name: 'Inventory', href: '/inventory' },
     { name: 'Leaderboard', href: '/leaderboard' },
-    { name: 'Pokémon Chatbot', href: '/chatbot' }
+    { name: 'Pokémon Chatbot', href: '/chatbot' },
+    { name: 'Challenges', href: '/challenges' },
+    { name: 'Outbreak Map', href: '/outbreak-map' }
   ];
 
   return (
