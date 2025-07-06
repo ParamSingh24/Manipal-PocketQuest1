@@ -31,4 +31,10 @@ export default defineConfig(({ mode }) => ({
   define: {
     global: 'globalThis',
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom'],
+  },
+  ssr: {
+    noExternal: ['@radix-ui/react-*'],
+  },
 }));
