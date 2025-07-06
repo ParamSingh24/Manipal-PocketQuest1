@@ -163,7 +163,7 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_PERPLEXITY_API_KEY}`
+          'Authorization': `Bearer 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`
         },
         body: JSON.stringify({
           model: 'sonar-pro',

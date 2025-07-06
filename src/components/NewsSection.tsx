@@ -38,9 +38,16 @@ const NewsSection: React.FC = () => {
             Stay updated with the most recent health news and outbreak reports from trusted sources.
           </p>
         </div>
-        {loading && <div>Loading news...</div>}
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-        {!loading && !error && news.length === 0 && <div>No news available.</div>}
+        {loading && <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>Loading health news...</div>}
+        {error && <div style={{ color: 'red', textAlign: 'center', padding: '2rem' }}>{error}</div>}
+        {!loading && !error && news.length === 0 && (
+          <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+            <p>News API key is missing. Please add VITE_NEWS_API_KEY to your .env file to see health news.</p>
+            <p style={{ fontSize: '0.9rem', marginTop: '1rem' }}>
+              Get your free API key from: <a href="https://newsapi.org/" target="_blank" rel="noopener noreferrer" style={{ color: '#007bff' }}>newsapi.org</a>
+            </p>
+          </div>
+        )}
         <div className="features-grid">
           {news.slice(0, 6).map((article, idx) => (
             <a

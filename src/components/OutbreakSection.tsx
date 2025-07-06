@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const GOOGLE_MAPS_API_KEY = 'AIzaSyAraVzrGGD7HF-NmhdgdUMx14LYSp6vOc4';
 
 function getRiskColor(casesPerMillion: number) {
   if (casesPerMillion > 10000) return 'red';
@@ -28,46 +28,61 @@ const OutbreakSection: React.FC = () => {
 
   // Load Google Maps
   useEffect(() => {
-    if (!GOOGLE_MAPS_API_KEY) {
-      setMapError('Google Maps API key is missing.');
+    if (!GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY.trim() === '') {
+      setMapError('Google Maps API key is missing. Please add VITE_GOOGLE_MAPS_API_KEY to your .env file.');
       return;
     }
-    if (window.google && mapRef.current) {
-      try {
-        const gmap = new window.google.maps.Map(mapRef.current, {
-          zoom: 2,
-          center: { lat: 20, lng: 0 },
-        });
-        setMap(gmap);
-        setInfoWindow(new window.google.maps.InfoWindow());
-      } catch (e) {
-        setMapError('Failed to initialize Google Maps.');
-      }
-      return;
-    }
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}`;
-    script.async = true;
-    script.onerror = () => setMapError('Failed to load Google Maps script. Check your API key and network.');
-    script.onload = () => {
+
+    const loadGoogleMaps = () => {
       if (window.google && mapRef.current) {
         try {
           const gmap = new window.google.maps.Map(mapRef.current, {
             zoom: 2,
             center: { lat: 20, lng: 0 },
+            mapTypeId: window.google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: false,
+            zoomControl: true,
+            scrollwheel: true,
           });
           setMap(gmap);
           setInfoWindow(new window.google.maps.InfoWindow());
         } catch (e) {
-          setMapError('Failed to initialize Google Maps after script load.');
+          console.error('Google Maps initialization error:', e);
+          setMapError('Failed to initialize Google Maps. Please check console for details.');
         }
-      } else {
-        setMapError('Google Maps did not initialize.');
+        return;
       }
     };
-    document.body.appendChild(script);
+
+    // Check if Google Maps is already loaded
+    if (window.google && window.google.maps) {
+      loadGoogleMaps();
+      return;
+    }
+
+    // Load Google Maps script
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    
+    script.onerror = () => {
+      console.error('Failed to load Google Maps script');
+      setMapError('Failed to load Google Maps script. Check your API key and network connection.');
+    };
+    
+    script.onload = () => {
+      console.log('Google Maps script loaded successfully');
+      setTimeout(loadGoogleMaps, 100); // Small delay to ensure everything is ready
+    };
+    
+    document.head.appendChild(script);
+    
     return () => {
-      document.body.removeChild(script);
+      const existingScript = document.querySelector(`script[src*="maps.googleapis.com"]`);
+      if (existingScript) {
+        document.head.removeChild(existingScript);
+      }
     };
   }, [GOOGLE_MAPS_API_KEY]);
 

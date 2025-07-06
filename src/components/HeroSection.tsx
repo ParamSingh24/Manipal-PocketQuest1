@@ -121,15 +121,7 @@ const HeroSection = () => {
   };
 
   return (
-<<<<<<< HEAD
     <section className={`hero-section${isColorblind ? ' hero-section-colorblind' : ''}`}>
-=======
-    <section className="hero-section" style={{
-      borderBottom: '2.5px solid transparent',
-      borderImage: 'linear-gradient(to right, #8A2BE2, #FF69B4) 1',
-      paddingBottom: '8px'
-    }}>
->>>>>>> ff5f11babf2ad7fd93549c62573313dd6ffaa5ec
       {/* Background Elements */}
       <div className="hero-background">
         <div className="floating-element floating-element-1"></div>
@@ -217,58 +209,6 @@ const HeroSection = () => {
                       ))}
                     </motion.div>
                   </motion.div>
-<<<<<<< HEAD
-=======
-                ) : pokemonError ? (
-                  <motion.div
-                    key="error" // Unique key for AnimatePresence
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.3 }}
-                    style={{
-                      color: 'red',
-                      textAlign: 'center',
-                      fontSize: '1.2rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      height: '100%',
-                      width: '100%',
-                    }}
-                  >
-                    {pokemonError}
-                  </motion.div>
-                ) : (
-                  // When Pokemon is loaded, add entry animation to PokemonCard
-                  <motion.div
-                    key={randomPokemon?.id || "pokemon-card"} // Key for AnimatePresence. Use Pokemon ID for re-animation on new pokemon.
-                    initial={{ opacity: 0, scale: 0.8, rotateY: 90 }} // Start rotated and small
-                    animate={{ opacity: 1, scale: 1, rotateY: 0 }} // Animate to full size and no rotation
-                    exit={{ opacity: 0, scale: 0.8, rotateY: -90 }} // Exit animation if component unmounts
-                    transition={{
-                      type: "spring",
-                      stiffness: 100,
-                      damping: 10,
-                      delay: 0.2, // Small delay after loading message disappears
-                      duration: 0.6 // Overall animation duration for the card
-                    }}
-                    style={{
-                      width: '100%', // Ensure the card takes full space within its container
-                      height: '100%',
-                      display: 'flex', // To center content if card isn't exactly 100%
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backfaceVisibility: 'hidden', // Prevents flickering on rotation
-                    }}
-                  >
-                    <div className="parent">
-                      <PokemonCardHero />
-
-                    </div>
-
-                  </motion.div>
->>>>>>> ff5f11babf2ad7fd93549c62573313dd6ffaa5ec
                 )}
               </AnimatePresence>
               {/* Show PokemonCardHero if not animating */}
@@ -279,7 +219,6 @@ const HeroSection = () => {
           </motion.div>
         </div>
       </div>
-<<<<<<< HEAD
       {/* Show story dialog after animation */}
       {showStory && (
         <StoryDialog isOpen={showStory} onClose={handleCloseStory} pokemon={randomPokemon} />
@@ -308,14 +247,6 @@ const HeroSection = () => {
           filter: grayscale(1) contrast(2);
         }
       `}</style>
-=======
-      {/* Story Dialog */}
-      <StoryDialog
-        isOpen={isStoryOpen}
-        onClose={() => setIsStoryOpen(false)}
-        pokemon={randomPokemon}
-      />
->>>>>>> ff5f11babf2ad7fd93549c62573313dd6ffaa5ec
     </section>
   );
 };

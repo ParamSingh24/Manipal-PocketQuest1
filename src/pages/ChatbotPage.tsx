@@ -9,8 +9,8 @@ const ChatbotPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  // API key for Gemini - it will be passed to PokemonChatbot
-  const apiKey = import.meta.env.VITE_GEMINI_API_KEY; // Assuming you have this in your .env file
+  // API key for Perplexity - it will be passed to PokemonChatbot
+  const apiKey = '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'; // Hardcoded for immediate use
 
   // Validate API key
   const [apiKeyValid, setApiKeyValid] = useState(true);
@@ -19,7 +19,7 @@ const ChatbotPage: React.FC = () => {
     // Simple validation to check if API key is present
     if (!apiKey || apiKey.trim() === '') {
       setApiKeyValid(false);
-      setError('API key is missing. Please provide a valid Gemini API key.');
+      setError('API key is missing. Please provide a valid Perplexity API key.');
     } else {
       setApiKeyValid(true);
     }
