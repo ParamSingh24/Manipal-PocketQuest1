@@ -31,11 +31,10 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     quizQuestion: {
         fontSize: '24px',
-        fontWeight: 'bold',
+        fontWeight: '200',
         textShadow: '0 2px 4px rgba(0,0,0,0.5)',
         transform: 'translateZ(60px)',
         marginBottom: '20px',
-       fontWeight: '200',
     },
     optionsContainer: {
         width: '100%',
