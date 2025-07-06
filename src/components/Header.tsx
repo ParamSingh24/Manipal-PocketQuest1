@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Menu, X, User, MessageCircle } from 'lucide-react';
+import { Menu, X, User } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 import VoiceNavigation from './VoiceNavigation';
 import Narrator from './Narrator';
 import { Link } from 'react-router-dom';
+import Pokeball from './Pokeball';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -20,24 +21,17 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <div className="header-content">
-          {/* Logo and Brand */}
-          <div className="logo-section">
-            <Link to="/" className="logo">
-              <div className="logo-icon">
-                <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" 
-                  alt="Pokeball" 
-                  style={{ width: 32, height: 32 }} 
-                />
-              </div>
-              <span className="brand-name">Manipal PokeQuest</span>
+          {/* Logo */}
+          <Link to="/" className="logo">
+            <div className="logo-icon" style={{ display: 'flex', alignItems: 'center' }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Pok%C3%A9_Ball_icon.svg" alt="Pokeball" style={{ width: 32, height: 32, marginRight: 8 }} />
+              <span className="logo-text"></span>
+            </div>
+            <Link to="/chatbot" className="chatbot-icon" style={{ marginLeft: 16 }}>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Chat_icon.svg/1200px-Chat_icon.svg.png" alt="Chatbot" style={{ width: 32, height: 32 }} />
             </Link>
-            
-            {/* Chatbot Quick Access */}
-            <Link to="/chatbot" className="chatbot-quick-access">
-              <MessageCircle size={20} />
-            </Link>
-          </div>
+            <span className="brand-name">Manipal PokeQuest</span>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav className="desktop-nav">
@@ -52,7 +46,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Header Actions */}
+          {/* User Profile, Theme Toggle & Mobile Menu */}
           <div className="header-actions">
             <VoiceNavigation />
             <Narrator 
@@ -70,7 +64,6 @@ const Header = () => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="mobile-menu-btn"
-              aria-label="Toggle mobile menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
