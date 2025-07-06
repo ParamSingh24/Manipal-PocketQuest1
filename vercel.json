@@ -26,10 +26,5 @@
         }
       ]
     }
-  ],
-  "functions": {
-    "dist/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  ]
 } 
