@@ -89,29 +89,57 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 4rem;
+  gap: 2rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
 }
 
 .logo-icon {
-  font-family:'"Young Serif", serif';
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
-.logo-text {
-  font-family:'"Young Serif", serif';
+.chatbot-quick-access {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+}
+
+.chatbot-quick-access:hover {
+  background: var(--color-primary-orange);
   color: white;
-  font-weight: 700;
-  font-size: 0.875rem;
+  transform: scale(1.1);
 }
 
 .brand-name {
@@ -125,6 +153,9 @@ body {
 .desktop-nav {
   display: none;
   gap: 2rem;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -149,6 +180,7 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-shrink: 0;
 }
 
 .theme-toggle-container {
@@ -164,11 +196,14 @@ body {
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   cursor: pointer;
   transition: all 0.2s ease;
   font-size: 0.875rem;
   font-weight: 500;
+  min-width: 2.5rem;
+  height: 2.5rem;
 }
 
 .theme-toggle-btn:hover {
@@ -466,27 +501,44 @@ body {
 }
 
 .profile-avatar {
-  width: 2rem;
-  height: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   background: var(--glass-bg);
-  border-radius: 50%;
+  border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.profile-avatar:hover {
+  background: var(--color-primary-orange);
+  color: white;
+  transform: scale(1.05);
 }
 
 .mobile-menu-btn {
   display: flex;
-  background: none;
-  border: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
 }
 
 .mobile-menu-btn:hover {
   color: var(--text-primary);
+  background: var(--color-primary-orange);
+  transform: scale(1.05);
 }
 
 @media (min-width: 768px) {
@@ -498,24 +550,44 @@ body {
 .mobile-nav {
   padding: 1rem 0;
   border-top: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-nav-content {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  padding: 0 1rem;
 }
 
 .mobile-nav-link {
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem;
-  transition: color 0.2s ease;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
 }
 
 .mobile-nav-link:hover {
   color: var(--color-primary-orange);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
 }
 
 /* Hero Section */
@@ -1818,7 +1890,8 @@ a:focus {
 /* Voice Navigation Styles */
 .voice-navigation {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
 }
 
 .voice-btn {
@@ -1949,10 +2022,19 @@ a:focus {
 
 /* Hero Narrator Styles */
 .hero-narrator {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.header-narrator {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .header-narrator {
+    display: flex;
+  }
 }
 
 .hero-narrator .narrator-controls {
