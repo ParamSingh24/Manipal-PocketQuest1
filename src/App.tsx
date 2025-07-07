@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { InventoryProvider } from "./contexts/InventoryContext";
+import WebsiteNarrator from "./components/WebsiteNarrator";
 
 // Import your pages
 import Index from "./pages/Index";
@@ -22,6 +23,7 @@ const App = () => (
       <InventoryProvider>
         <Toaster />
         <Sonner />
+        <WebsiteNarrator />
         <BrowserRouter
           future={{
             v7_startTransition: true,

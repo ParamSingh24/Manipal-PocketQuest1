@@ -94,10 +94,10 @@ const GlassyHomeButton = () => {
  */
 export default function App() {
   const appStyles = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding:'40px',
+    position: 'fixed',
+    top: '20px',
+    left: '20px',
+    zIndex: 1000,
   };
 
   return (

@@ -80,6 +80,27 @@
         line-height: 0 !important;
         box-shadow: none !important;
         border: none !important;
+        text-indent: -9999px !important;
+        overflow: hidden !important;
+      }
+      
+      /* Hide Google branding but keep functionality */
+      #google_translate_element .goog-te-gadget {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        height: 100% !important;
+        position: relative !important;
+      }
+      
+      /* Hide Google text but keep the select functional */
+      #google_translate_element .goog-te-gadget span,
+      #google_translate_element .goog-te-gadget img,
+      #google_translate_element .goog-te-gadget a {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
       }
       #google_translate_element .goog-te-gadget-icon,
       #google_translate_element .goog-te-banner-frame,
@@ -155,6 +176,21 @@
         max-height: 0 !important;
         min-width: 0 !important;
         min-height: 0 !important;
+      }
+      
+      /* Hide Google banner and menu frames */
+      .goog-te-banner,
+      .goog-te-banner *,
+      .goog-te-menu-frame {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+      }
+      
+      /* Hide Google text in options but keep functionality */
+      .goog-te-combo option[value*="google"],
+      .goog-te-combo option[value*="Google"] {
+        display: none !important;
       }
       /* Dark mode support */
       @media (prefers-color-scheme: dark) {

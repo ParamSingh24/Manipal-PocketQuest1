@@ -163,7 +163,7 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer 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`
+          'Authorization': `Bearer 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`
         },
         body: JSON.stringify({
           model: 'sonar-pro',
@@ -273,33 +273,23 @@ const PokemonChatbot: React.FC<PokemonChatbotProps> = ({
         className="sm:max-w-[500px] max-h-[80vh] flex flex-col bg-white dark:bg-zinc-900 z-[50] shadow-2xl border-2 border-primary/40"
         aria-describedby="pokemon-chatbot-description"
       >
-        <DialogHeader className="flex flex-row items-center justify-between pb-2">
-          <div className="flex items-center gap-2">
-            <div 
-              className="w-10 h-10 rounded-full overflow-hidden border-2" 
-              style={{ borderColor: getTypeColor(pokemon.type) }}
-            >
-              <img 
-                src={pokemon.image} 
-                alt={pokemon.name} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <DialogTitle className="text-xl">
-              {pokemon.name} Assistant
-            </DialogTitle>
-            <DialogDescription id="pokemon-chatbot-description" className="sr-only">
-              Chat with {pokemon.name}, your personal Pokémon assistant.
-            </DialogDescription>
-          </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={onClose}
-            className="rounded-full"
+        <DialogHeader className="flex flex-row items-center gap-2 pb-2">
+          <div 
+            className="w-10 h-10 rounded-full overflow-hidden border-2" 
+            style={{ borderColor: getTypeColor(pokemon.type) }}
           >
-            <X className="h-4 w-4" />
-          </Button>
+            <img 
+              src={pokemon.image} 
+              alt={pokemon.name} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <DialogTitle className="text-xl">
+            {pokemon.name} Assistant
+          </DialogTitle>
+          <DialogDescription id="pokemon-chatbot-description" className="sr-only">
+            Chat with {pokemon.name}, your personal Pokémon assistant.
+          </DialogDescription>
         </DialogHeader>
         
         {/* Messages container */}

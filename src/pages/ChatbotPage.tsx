@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import PokemonChatbot from '@/components/PokemonChatbot';
 import { Pokemon } from '@/types';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ChatbotPage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +12,7 @@ const ChatbotPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   
   // API key for Perplexity - it will be passed to PokemonChatbot
-  const apiKey = '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'; // Hardcoded for immediate use
+  const apiKey = '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'; // Hardcoded for immediate use
 
   // Validate API key
   const [apiKeyValid, setApiKeyValid] = useState(true);
@@ -120,6 +122,16 @@ const ChatbotPage: React.FC = () => {
   
   return (
     <div className="container mx-auto py-8 px-4">
+      {/* Back Button */}
+      <div className="mb-6">
+        <Link to="/">
+          <Button variant="ghost" className="flex items-center gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Button>
+        </Link>
+      </div>
+      
       <h1 className="text-4xl font-bold mb-6 text-center">Pokémon AI Assistant</h1>
       
       <div className="max-w-2xl mx-auto bg-card rounded-lg shadow-lg p-6 mb-8">

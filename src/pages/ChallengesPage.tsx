@@ -7,6 +7,9 @@ import RewardClaim from '../components/RewardClaim';
 import PokemonCardModal from '../components/PokemonCardModal';
 import { PokemonCard } from '../types/pokemonData';
 import { getRandomPokemon } from '../data/pokemonData';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ChallengesPage: React.FC = () => {
   const [currentSteps, setCurrentSteps] = useState<number>(0);
@@ -98,8 +101,20 @@ const ChallengesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      {/* Back Button */}
+      <div className="pt-20 pb-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link to="/">
+            <Button variant="ghost" className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+          </Link>
+        </div>
+      </div>
+
       {/* Header Section */}
-      <div className="pt-20 pb-8">
+      <div className="pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
