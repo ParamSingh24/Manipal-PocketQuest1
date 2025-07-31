@@ -5,6 +5,7 @@ import VoiceNavigation from './VoiceNavigation';
 import WebsiteNarrator from './WebsiteNarrator';
 import { Link } from 'react-router-dom';
 import Pokeball from './Pokeball';
+import { AuthButton } from './auth/AuthButton';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,12 +49,9 @@ const Header = () => {
           <div className="header-actions">
             <VoiceNavigation />
             <WebsiteNarrator />
+            <AuthButton />
             <ThemeToggle />
-            <div className="user-profile">
-              <div className="profile-avatar">
-                <User size={16} />
-              </div>
-            </div>
+            
 
             {/* Mobile menu button */}
             <button

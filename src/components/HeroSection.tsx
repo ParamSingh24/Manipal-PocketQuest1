@@ -153,16 +153,28 @@ const HeroSection = () => {
               Collect Pokemon Cards By Performing Daily Challenges And Quizzes To Climb The Leaderboards
             </p>
 
-            <button
-              className="cssbuttons-io-button"
-              style={heroDescriptionStyle2}
-              onClick={handleStartQuest}
-            >
-              Start Your Quest
-              <div className="icon">
-                <ArrowRight />
-              </div>
-            </button>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <button
+                className="cssbuttons-io-button"
+                style={heroDescriptionStyle2}
+                onClick={handleStartQuest}
+              >
+                Start Your Quest
+                <div className="icon">
+                  <ArrowRight />
+                </div>
+              </button>
+              <button
+                className="cssbuttons-io-button"
+                style={{ ...heroDescriptionStyle2, backgroundColor: '#ff0000' }}
+                onClick={() => window.location.href = '/save-planet'}
+              >
+                Save Planet
+                <div className="icon">
+                  <Sparkles />
+                </div>
+              </button>
+            </div>
           </motion.div>
 
           {/* Character/Illustration Container with Mouse Events and 3D Perspective */}
