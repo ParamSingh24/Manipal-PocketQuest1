@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Upload, Leaf, Trash2, ChevronRight, X, Loader2, Sparkles, Award } from 'lucide-react';
+import { CheckCircle, Upload, Leaf, Trash2, ChevronRight, X, Loader2, Sparkles, Award, Eye, ArrowLeft, Camera, Star, Zap, Heart, TreePine, Droplets, Recycle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 type Task = {
   id: string;
@@ -60,6 +61,55 @@ const SavePlanetPage = () => {
       title: 'Volunteer at a Shelter',
       description: 'Spend 2 hours volunteering at an animal or homeless shelter.',
       points: 150,
+      completed: false,
+    },
+    {
+      id: '6',
+      title: 'Start Composting',
+      description: 'Set up a home composting system for organic waste.',
+      points: 80,
+      completed: false,
+    },
+    {
+      id: '7',
+      title: 'Use Public Transportation',
+      description: 'Take public transport instead of driving for one week.',
+      points: 90,
+      completed: false,
+    },
+    {
+      id: '8',
+      title: 'Organize a Beach Cleanup',
+      description: 'Organize and participate in a beach or waterway cleanup event.',
+      points: 120,
+      completed: false,
+    },
+    {
+      id: '9',
+      title: 'Install Solar Panels',
+      description: 'Install solar panels or renewable energy source at home.',
+      points: 200,
+      completed: false,
+    },
+    {
+      id: '10',
+      title: 'Create a Recycling Station',
+      description: 'Set up a community recycling station in your neighborhood.',
+      points: 130,
+      completed: false,
+    },
+    {
+      id: '11',
+      title: 'Water Conservation',
+      description: 'Install water-saving devices and reduce water usage by 20%.',
+      points: 70,
+      completed: false,
+    },
+    {
+      id: '12',
+      title: 'Organic Garden',
+      description: 'Start an organic vegetable garden using sustainable practices.',
+      points: 110,
       completed: false,
     },
   ]);
@@ -151,19 +201,63 @@ const SavePlanetPage = () => {
     }
   };
 
+  const getTaskIcon = (taskId: string) => {
+    const iconMap: { [key: string]: React.ReactNode } = {
+      '1': <Trash2 className="h-4 w-4" />,
+      '2': <TreePine className="h-4 w-4" />,
+      '3': <Heart className="h-4 w-4" />,
+      '4': <Recycle className="h-4 w-4" />,
+      '5': <Heart className="h-4 w-4" />,
+      '6': <Leaf className="h-4 w-4" />,
+      '7': <Zap className="h-4 w-4" />,
+      '8': <Droplets className="h-4 w-4" />,
+      '9': <Star className="h-4 w-4" />,
+      '10': <Recycle className="h-4 w-4" />,
+      '11': <Droplets className="h-4 w-4" />,
+      '12': <TreePine className="h-4 w-4" />,
+    };
+    return iconMap[taskId] || <Leaf className="h-4 w-4" />;
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen app" style={{ background: 'var(--background-primary)' }}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Back Button */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+          className="mb-6"
+        >
+          <Link to="/">
+            <Button 
+              variant="ghost" 
+              className="flex items-center gap-2 text-white hover:bg-white/10 backdrop-filter backdrop-blur-sm border border-white/20"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Button>
+          </Link>
+        </motion.div>
+
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-4">
-            Save Our Planet
+          <h1 
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{
+              fontFamily: '"Young Serif", serif',
+              color: 'white',
+              textShadow: '0px 4px 8px rgba(8, 8, 8, 0.4), 0px 0px 15px rgba(255, 255, 255, 0.2)',
+              letterSpacing: '0.05em'
+            }}
+          >
+            🌍 Save Our Planet
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-white/90 max-w-2xl mx-auto" style={{ fontFamily: '"Roboto Serif", serif' }}>
             Complete sustainable tasks, upload proof, and earn rewards while making a positive impact on the environment!
           </p>
         </motion.div>
@@ -174,31 +268,55 @@ const SavePlanetPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          <Card className="mb-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-2 border-blue-100 dark:border-gray-700 shadow-lg hover:shadow-xl transition-shadow">
+          <Card 
+            className="mb-8 shadow-lg hover:shadow-xl transition-all duration-300"
+            style={{
+              background: 'var(--glass-bg)',
+              backdropFilter: 'var(--backdrop-blur)',
+              border: '1px solid var(--glass-border)',
+              borderRadius: '1rem'
+            }}
+          >
             <CardHeader>
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <CardTitle className="text-blue-700 dark:text-blue-300">Your Impact</CardTitle>
-                  <CardDescription className="text-gray-600 dark:text-gray-300">
+                  <CardTitle className="text-white" style={{ fontFamily: '"Young Serif", serif' }}>
+                    🌟 Your Impact
+                  </CardTitle>
+                  <CardDescription className="text-white/80" style={{ fontFamily: '"Roboto Serif", serif' }}>
                     Complete tasks to earn points and rewards
                   </CardDescription>
                 </div>
-                <div className="text-right bg-blue-50 dark:bg-gray-700/50 px-4 py-2 rounded-lg">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-300">{totalPoints} / 500</div>
-                  <div className="text-sm text-blue-500 dark:text-blue-400">Points to next reward</div>
+                <div 
+                  className="text-right px-4 py-2 rounded-lg"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)'
+                  }}
+                >
+                  <div className="text-2xl font-bold" style={{ color: 'var(--color-primary-yellow)' }}>
+                    {totalPoints} / 500
+                  </div>
+                  <div className="text-sm text-white/70">Points to next reward</div>
                 </div>
               </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
-                <div className="flex justify-between text-sm text-blue-600 dark:text-blue-300">
+                <div className="flex justify-between text-sm text-white/90">
                   <span>Progress</span>
                   <span>{Math.round(completionPercentage)}%</span>
                 </div>
                 <div className="relative">
-                  <div className="h-3 bg-blue-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div 
+                    className="h-3 rounded-full overflow-hidden"
+                    style={{ background: 'rgba(255, 255, 255, 0.2)' }}
+                  >
                     <motion.div 
-                      className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                      className="h-full rounded-full"
+                      style={{
+                        background: 'linear-gradient(135deg, var(--color-primary-yellow) 0%, var(--color-primary-orange) 50%, var(--color-accent-pink) 100%)'
+                      }}
                       initial={{ width: '0%' }}
                       animate={{ width: `${completionPercentage}%` }}
                       transition={{ duration: 1, type: 'spring' }}
@@ -208,9 +326,9 @@ const SavePlanetPage = () => {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col sm:flex-row justify-between items-center gap-4 pt-2">
-              <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="text-sm text-white/80">
                 {totalPoints >= 500 ? (
-                  <span className="text-green-500 dark:text-green-400 font-medium flex items-center">
+                  <span className="font-medium flex items-center" style={{ color: 'var(--color-primary-yellow)' }}>
                     <Sparkles className="h-4 w-4 mr-1" /> Ready to claim your reward!
                   </span>
                 ) : (
@@ -220,11 +338,16 @@ const SavePlanetPage = () => {
               <Button 
                 onClick={claimReward}
                 disabled={totalPoints < 500}
-                className={`w-full sm:w-auto transition-all duration-300 ${
-                  totalPoints >= 500 
-                    ? 'bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-lg hover:shadow-amber-500/30'
-                    : 'bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
-                }`}
+                className={`w-full sm:w-auto transition-all duration-300 font-medium`}
+                style={{
+                  fontFamily: '"Young Serif", serif',
+                  background: totalPoints >= 500 
+                    ? 'linear-gradient(135deg, var(--color-primary-yellow), var(--color-primary-orange))'
+                    : 'rgba(255, 255, 255, 0.1)',
+                  color: totalPoints >= 500 ? 'black' : 'rgba(255, 255, 255, 0.5)',
+                  border: totalPoints >= 500 ? 'none' : '1px solid rgba(255, 255, 255, 0.2)',
+                  cursor: totalPoints >= 500 ? 'pointer' : 'not-allowed'
+                }}
               >
                 {totalPoints >= 500 ? (
                   <>
@@ -240,40 +363,43 @@ const SavePlanetPage = () => {
 
         {/* Tabs */}
         <motion.div 
-          className="flex border-b border-gray-200 dark:border-gray-700 mb-8 relative"
+          className="flex mb-8 relative"
+          style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.2)' }}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
           <button
-            className={`relative py-3 px-6 font-medium text-sm transition-colors ${
-              activeTab === 'tasks' 
-                ? 'text-blue-600 dark:text-blue-400' 
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-            }`}
+            className={`relative py-3 px-6 font-medium text-sm transition-colors`}
+            style={{
+              fontFamily: '"Young Serif", serif',
+              color: activeTab === 'tasks' ? 'var(--color-primary-yellow)' : 'rgba(255, 255, 255, 0.7)'
+            }}
             onClick={() => setActiveTab('tasks')}
           >
-            Available Tasks
+            🌱 Available Tasks
             {activeTab === 'tasks' && (
               <motion.div 
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"
+                className="absolute bottom-0 left-0 right-0 h-0.5"
+                style={{ background: 'var(--color-primary-orange)' }}
                 layoutId="activeTab"
                 transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
               />
             )}
           </button>
           <button
-            className={`relative py-3 px-6 font-medium text-sm transition-colors ${
-              activeTab === 'rewards' 
-                ? 'text-blue-600 dark:text-blue-400' 
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
-            }`}
+            className={`relative py-3 px-6 font-medium text-sm transition-colors`}
+            style={{
+              fontFamily: '"Young Serif", serif',
+              color: activeTab === 'rewards' ? 'var(--color-primary-yellow)' : 'rgba(255, 255, 255, 0.7)'
+            }}
             onClick={() => setActiveTab('rewards')}
           >
-            Your Rewards
+            🏆 Your Rewards
             {activeTab === 'rewards' && (
               <motion.div 
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-500"
+                className="absolute bottom-0 left-0 right-0 h-0.5"
+                style={{ background: 'var(--color-primary-orange)' }}
                 layoutId="activeTab"
                 transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
               />
